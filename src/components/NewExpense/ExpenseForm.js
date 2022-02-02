@@ -2,12 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./ExpenseForm.css";
 
 const ExpenseForm = (props) => {
-    const localTitle = localStorage.getItem("ls_nome");
-    const localAmount = localStorage.getItem("ls_amount");
-    const localDate = localStorage.getItem("ls_date");
-  const [newTitle, setNewTitle] = useState(localTitle);
-  const [newAmount, setNewAmount] = useState(localAmount);
-  const [newDate, setNewDate] = useState(localDate);
+  const [newTitle, setNewTitle] = useState('');
+  const [newAmount, setNewAmount] = useState('');
+  const [newDate, setNewDate] = useState('');
 
   const titleChangeHandler = (event) => {
     return setNewTitle(event.target.value);
@@ -27,24 +24,11 @@ const ExpenseForm = (props) => {
       date: new Date(newDate),
     };
     props.saveData(expenseData);
-    setNewTitle(localTitle);
-    setNewAmount(localAmount);
-    setNewDate(localDate);
+    setNewTitle('');
+    setNewAmount('');
+    setNewDate('');
   };
 
-  const armazenar = (chave, valor) => {
-    localStorage.setItem(chave, valor);
-    setNewTitle(valor)
-    setNewAmount(localAmount)
-    setNewDate(localDate)
-  };
-
-  const deletar = (chave) => {
-    localStorage.removeItem(chave);
-    setNewTitle("")
-    setNewAmount('')
-    setNewDate('')
-  };
   return (
     <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
@@ -78,11 +62,8 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
-        <button onClick={() => armazenar("ls_nome", newTitle)}>
+        <button>
           Adicionar Expense
-        </button>
-        <button onClick={() => deletar("ls_nome", newTitle)}>
-          Deletar Expense
         </button>
       </div>
     </form>
